@@ -1,0 +1,115 @@
+*****************************************************************************************
+********************************说明文件*************************************************
+*****************************************************************************************
+
+
+
+
+
+【文件目录说明】
+├─App : 
+│	├─App
+│	├─Config
+│	└─Modules
+│
+├─Biz    :  
+│
+├─Bsp      :  
+│  ├─NXP_Driver  :  
+│  └─ST_Driver
+│		├─BSP	
+│		├─CMSIS	:  CMSIS是ARM公司与多家不同的芯片和软件供应商一起紧密合作定义的，提供了内核与外设、实时操作系统和中间设备之间的通用接口。
+│		└─STM32F4xx_HAL_Driver	：STM32F4xx系列MCU的硬件抽象层(HAL)库源代码
+├─Doc	：
+│
+├─Hal   :
+│	├─Components
+│	├─inc
+│	└─src
+│
+├─Middlewares      :  
+│   ├─ST  :  
+│	│	├─STemWin
+│	│	├─STM32_Audio
+│	│	├─STM32_USB_Device_Library
+│	│	└─STM32_USB_Host_Library
+│	└─Third_Party
+│		├─FatFs
+│		├─FreeRTOS
+│		├─LibJPEG
+│		├─LwIP
+│		└─PolarSSL	
+│
+├─Project      :  
+│	├─NXP_MDK-ARM
+│	└─ST_MDK-ARM
+│
+└─Utilities
+	├─common
+	├─CPU
+	├─Fonts
+	└─Log
+
+
+【文件说明】
+common_all_macro_def.h
+工程中所有文件的宏定义
+内存分配说明： 位置在hal_sdram.h
+sdram-----》16M
+-------0xd0000000
+|
+|---8m
+|
+-------0xd0000000 + 0x800000(8M)   (GUI的起始地址)
+|
+|---8m
+|
+-------dfffffff   (GUI结束地址，总共分配12M) 
+
+
+
+
+ 语法规则
+ 枚举类型定义
+
+typedef enum
+{
+	EN_PRE_INIT_1 = 0,
+	EN_PRE_INIT_2 ,
+	EN_PRE_INIT_3 ,
+	EN_PRE_INIT_4,
+	EN_PRE_INIT_STAGE_DONE
+}En_PRE_INIT_STATGE;
+
+INTERFACE En_PRE_INIT_STATGE en_preInitStage;
+En_PRE_INIT_STATGE g_enPreInitStage;
+
+结构体定义
+
+typedef struct
+{
+	EN_PRE_INIT_1 = 0,
+	EN_PRE_INIT_2 ,
+	EN_PRE_INIT_3 ,
+	EN_PRE_INIT_4,
+	EN_PRE_INIT_STAGE_DONE
+}St_PRE_INIT_STATGE;
+INTERFACE St_PRE_INIT_STATGE g_stPreInitStage;
+St_PRE_INIT_STATGE stPreInitStage;
+全局变量定义
+INTERFACE uint8_t g_u8ValueAdc;
+INTERFACE uint16_t g_u16ValueAdc;
+INTERFACE uin32_t g_u32ValueAdc;
+INTERFACE int8_t g_i8ValueAdc;
+INTERFACE int16_t g_i16ValueAdc;
+INTERFACE int32_t g_i32ValueAdc;
+INTERFACE bool_t g_bValueAdc;
+INTERFACE bool_t g_pValueAdc;   //指针类型
+函数内局部变量定义
+定义方法同上，去掉上面的g_
+
+宏定义
+G_CONFIG_ 全局使用
+G_FUN_    全局功能
+DEF_    文件内部
+
