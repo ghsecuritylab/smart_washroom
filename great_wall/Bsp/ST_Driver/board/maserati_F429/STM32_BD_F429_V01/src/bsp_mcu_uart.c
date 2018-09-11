@@ -18,22 +18,22 @@
 /* Private defines -----------------------------------------------------------*/
 /**
  * @brief Definition for COM port1, connected to USART1
- */ 
+ */
 
 #define MCU_COM1                           USART1
-#define MCU_COM1_CLK_ENABLE()             __USART1_CLK_ENABLE()   
+#define MCU_COM1_CLK_ENABLE()             __USART1_CLK_ENABLE()
 #define MCU_COM1_CLK_DISABLE()            __USART1_CLK_DISABLE()
 
 #define MCU_COM1_TX_PIN                   GPIO_PIN_9
 #define MCU_COM1_TX_GPIO_PORT             GPIOA
-#define MCU_COM1_TX_GPIO_CLK_ENABLE()     __GPIOA_CLK_ENABLE()   
-#define MCU_COM1_TX_GPIO_CLK_DISABLE()    __GPIOA_CLK_DISABLE()  
+#define MCU_COM1_TX_GPIO_CLK_ENABLE()     __GPIOA_CLK_ENABLE()
+#define MCU_COM1_TX_GPIO_CLK_DISABLE()    __GPIOA_CLK_DISABLE()
 #define MCU_COM1_TX_AF                    GPIO_AF7_USART1
 
 #define MCU_COM1_RX_PIN                   GPIO_PIN_10
 #define MCU_COM1_RX_GPIO_PORT             GPIOA
-#define MCU_COM1_RX_GPIO_CLK_ENABLE()     __GPIOA_CLK_ENABLE()   
-#define MCU_COM1_RX_GPIO_CLK_DISABLE()    __GPIOA_CLK_DISABLE()  
+#define MCU_COM1_RX_GPIO_CLK_ENABLE()     __GPIOA_CLK_ENABLE()
+#define MCU_COM1_RX_GPIO_CLK_DISABLE()    __GPIOA_CLK_DISABLE()
 #define MCU_COM1_RX_AF                    GPIO_AF7_USART1
 
 #define MCU_COM1_IRQn                     USART1_IRQn
@@ -78,7 +78,7 @@ COMMON_StatusTypeDef BSP_UartInit(En_MCU_UART_PORT enUartPort,uint32_t u32Baud)
     {
         return COMMON_PARA_ERROR;
     }
-    
+
     switch(enUartPort)
     {
         case EN_MCU_UART_1:
@@ -92,9 +92,9 @@ COMMON_StatusTypeDef BSP_UartInit(En_MCU_UART_PORT enUartPort,uint32_t u32Baud)
             break;
         default:
             iRet = COMMON_PARA_ERROR;
-            break;       
+            break;
     }
-    
+
     return iRet;
 }
 
@@ -116,14 +116,14 @@ static COMMON_StatusTypeDef BSP_Uart1Init(uint32_t u32Baud)
     MCU_COM1_CLK_ENABLE() ;
 
     /* Configure USART Tx as alternate function */
-    /* TXD ---- PA9 */ 
+    /* TXD ---- PA9 */
     GPIO_InitStruct.Pin = MCU_COM1_TX_PIN;
     GPIO_InitStruct.Mode = GPIO_MODE_AF_PP;
     GPIO_InitStruct.Speed = GPIO_SPEED_FAST;
     GPIO_InitStruct.Pull = GPIO_PULLUP;
     GPIO_InitStruct.Alternate = MCU_COM1_TX_AF;
     HAL_GPIO_Init(MCU_COM1_TX_GPIO_PORT, &GPIO_InitStruct);
-    
+
     /*RXD ---- PA10 */
     GPIO_InitStruct.Pin = MCU_COM1_RX_PIN;
     GPIO_InitStruct.Mode = GPIO_MODE_AF_PP;
@@ -135,13 +135,13 @@ static COMMON_StatusTypeDef BSP_Uart1Init(uint32_t u32Baud)
     /* USART configuration */
     Uart1Handle.Instance = MCU_COM1;
 
-    Uart1Handle.Init.BaudRate = u32Baud;				        
-    Uart1Handle.Init.WordLength = UART_WORDLENGTH_8B;        
-    Uart1Handle.Init.StopBits = UART_STOPBITS_1;	      
-    Uart1Handle.Init.Parity = UART_PARITY_NONE;		        
-    Uart1Handle.Init.HwFlowCtl = UART_HWCONTROL_NONE;       
-    Uart1Handle.Init.Mode = UART_MODE_TX_RX;		         
-    
+    Uart1Handle.Init.BaudRate = u32Baud;
+    Uart1Handle.Init.WordLength = UART_WORDLENGTH_8B;
+    Uart1Handle.Init.StopBits = UART_STOPBITS_1;
+    Uart1Handle.Init.Parity = UART_PARITY_NONE;
+    Uart1Handle.Init.HwFlowCtl = UART_HWCONTROL_NONE;
+    Uart1Handle.Init.Mode = UART_MODE_TX_RX;
+
     if(HAL_UART_Init(&Uart1Handle) != HAL_OK)
     {
         return COMMON_ERROR;
@@ -163,7 +163,7 @@ static COMMON_StatusTypeDef BSP_Uart2Init(uint32_t u32Baud)
 #if (defined(MCU_UART2_DEFINED))
 #else
     return COMMON_ERROR;
-#endif    
+#endif
 }
 
 /**
@@ -177,7 +177,7 @@ static COMMON_StatusTypeDef BSP_Uart3Init(uint32_t u32Baud)
 #if (defined(MCU_UART3_DEFINED))
 #else
     return COMMON_ERROR;
-#endif    
+#endif
 }
 
 /**
@@ -208,11 +208,11 @@ uint8_t BSP_Uart1SendChar(uint8_t u8Ch)
   */
 
 /**
-  * @brief  This function handles UART interrupt request.  
+  * @brief  This function handles UART interrupt request.
   * @param  None
   * @retval None
-  * @Note   This function is redefined in "main.h" and related to DMA stream 
-  *         used for USART data transmission     
+  * @Note   This function is redefined in "main.h" and related to DMA stream
+  *         used for USART data transmission
   */
 void USARTx_IRQHandler(void)
 {
